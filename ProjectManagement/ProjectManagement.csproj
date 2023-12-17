@@ -201,8 +201,15 @@
     <Compile Include="Enums\IncomeType.cs" />
     <Compile Include="Enums\ProjectStatus.cs" />
     <Compile Include="Enums\ProjectType.cs" />
+    <Compile Include="Repositories\PointRepository.cs" />
     <Compile Include="Repositories\ProjectEmployeeRepository.cs" />
     <Compile Include="Repositories\ProjectRepository.cs" />
+    <Compile Include="UserControls\PointUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\PointUserControl.Designer.cs">
+      <DependentUpon>PointUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ProjectUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -251,6 +258,9 @@
     </Compile>
     <EmbeddedResource Include="UserControls\EmployeeUserControl.resx">
       <DependentUpon>EmployeeUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\PointUserControl.resx">
+      <DependentUpon>PointUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ProjectUserControl.resx">
       <DependentUpon>ProjectUserControl.cs</DependentUpon>

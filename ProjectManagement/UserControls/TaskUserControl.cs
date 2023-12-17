@@ -54,6 +54,27 @@ namespace ProjectManagement.UserControls
             }
         }
 
+        private void treeProje_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node.Tag != null)
+            {
+                // Tag özelliği Proje sınıfına ait mi diye kontrol et
+                if (e.Node.Tag is Project)
+                {
+                    Project proje = (Project)e.Node.Tag;
+                    pnlTree.Controls.Clear();
+                    BindingSource source = PointRepository.getPointByProjectId(proje.Id);
+                    PointUserControl pointUserControl = new PointUserControl(source);
+                    pointUserControl.Dock = DockStyle.Fill;
+                    pnlTree.Controls.Add(pointUserControl);
+                }
+                else if (e.Node.Tag is Entities.Point)
+                {
+                    Entities.Point proje = (Entities.Point)e.Node.Tag;
+                }
+            }
+        }
+
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -68,5 +89,7 @@ namespace ProjectManagement.UserControls
         {
 
         }
+
+    
     }
 }

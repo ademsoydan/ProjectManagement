@@ -30,8 +30,8 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlTree = new System.Windows.Forms.Panel();
             this.treeProje = new System.Windows.Forms.TreeView();
-            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -56,7 +56,7 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.button1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.pnlTree, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -65,6 +65,14 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(484, 457);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
+            // pnlTree
+            // 
+            this.pnlTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTree.Location = new System.Drawing.Point(3, 3);
+            this.pnlTree.Name = "pnlTree";
+            this.pnlTree.Size = new System.Drawing.Size(478, 451);
+            this.pnlTree.TabIndex = 0;
+            // 
             // treeProje
             // 
             this.treeProje.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -72,16 +80,7 @@
             this.treeProje.Name = "treeProje";
             this.treeProje.Size = new System.Drawing.Size(205, 457);
             this.treeProje.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.treeProje.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeProje_NodeMouseDoubleClick);
             // 
             // TaskUserControl
             // 
@@ -101,6 +100,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TreeView treeProje;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel pnlTree;
     }
 }
