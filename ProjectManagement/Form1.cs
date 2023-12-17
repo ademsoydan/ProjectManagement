@@ -16,6 +16,7 @@ namespace ProjectManagement
         UserControl activeUserControl;
         EmployeeUserControl employeeUserControl;
         ProjectUserControl projectUserControl;
+        TaskUserControl taskUserControl;
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace ProjectManagement
         {
             employeeUserControl = new EmployeeUserControl();
             projectUserControl = new ProjectUserControl();
+            taskUserControl = new TaskUserControl();
         }
 
         public void ChangeActiveUserControl(object sender, EventArgs e)
@@ -37,6 +39,7 @@ namespace ProjectManagement
                     activeUserControl = projectUserControl;
                     break;
                 case 2:
+                    activeUserControl = taskUserControl;
                     break;
                 case 3:
                     activeUserControl = employeeUserControl;

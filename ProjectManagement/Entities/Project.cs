@@ -28,6 +28,8 @@ namespace ProjectManagement.Entities
         public int ParasalGetiriTipi { get; set; }
 
         public Project() { }
+
+       
     }
 
 

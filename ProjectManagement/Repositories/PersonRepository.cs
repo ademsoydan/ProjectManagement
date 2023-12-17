@@ -126,6 +126,7 @@ namespace ProjectManagement.Repositories
 
                             // BindingSource'a DataTable'ı bağla
                             bindingSource.DataSource = dataTable;
+                            
                         }
                     }
                 }
@@ -178,44 +179,6 @@ namespace ProjectManagement.Repositories
                 catch (Exception ex)
                 {
                     MessageBox.Show("Veri güncelleme hatası: " + ex.Message);
-                }
-            }
-
-            return false;
-        }
-
-        public static bool DeleteById(int targetId)
-        {
-            using (SqlConnection connection = new SqlConnection(ConnectionUtil.ConnectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    string deleteQuery = "DELETE FROM Employee WHERE Id = @TargetId";
-
-                    using (SqlCommand command = new SqlCommand(deleteQuery, connection))
-                    {
-                        // Parametreyi belirle
-                        command.Parameters.AddWithValue("@TargetId", targetId);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("Employee deleted successfully.");
-                            return true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Employee not found with the specified Id.");
-                            return false;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Veri silme hatası: " + ex.Message);
                 }
             }
 

@@ -1,4 +1,5 @@
-﻿using ProjectManagement.Entities;
+﻿using DevExpress.XtraEditors.Internal;
+using ProjectManagement.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -238,6 +239,50 @@ namespace ProjectManagement.Repositories
                 }
             }
             return null;
+        }
+
+        public static List<TreeResponse> GetTreeInfo()
+        {
+            List<TreeResponse> projects = new List<TreeResponse>();
+
+            using (SqlConnection connection = new SqlConnection(ConnectionUtil.ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string query = "SELECT P.id as proje_id, P.proje_ismi , D.Id as point_id, D.durak_ismi as point_name, T.Id as task_id, T.task_ismi as task_name\r\nFROM Proje P\r\nLEFT JOIN DURAK D on P.id = D.proje_id\r\nLEFT JOIN Task T on t.durak_id = D.Id";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Project project = new Project();
+                                project.Id = reader.GetInt32(0);
+                                project.ProjeIsmi = reader.IsDBNull(1) ? null : reader.GetString(1);
+                                Point point = new Point();
+                                point.Id = reader.IsDBNull(2) ? -1 : reader.GetInt32(2);
+                                point.PointName = reader.IsDBNull(3) ? null : reader.GetString(3);
+                                ProjectTask task = new ProjectTask();
+                                task.Id = reader.IsDBNull(4) ? -1 : reader.GetInt32(4);
+                                task.TaskName = reader.IsDBNull(5) ? null : reader.GetString(5);
+                                TreeResponse response = new TreeResponse();
+                                response.Proje = project;
+                                response.Task = task;
+                                response.Point = point;
+                                projects.Add(response);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Veritabanından veri çekerken hata oluştu: " + ex.Message);
+                }
+            }
+
+            return projects;
         }
     }
 }
