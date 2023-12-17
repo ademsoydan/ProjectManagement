@@ -83,7 +83,8 @@ namespace ProjectManagement.Repositories
                                     TelefonNumarasi = reader["telefon_numarasi"].ToString(),
                                     Adres = reader["Adres"].ToString(),
                                     DogumTarihi = Convert.ToDateTime(reader["dogum_tarihi"]),
-                                    Fotograf = reader["fotograf"].ToString()
+                                    Fotograf = reader["fotograf"].ToString(),
+                                    Password = reader["Password"].ToString()
                                 };
 
                                 return employee;
@@ -158,7 +159,7 @@ namespace ProjectManagement.Repositories
                         command.Parameters.AddWithValue("@Adres", updatedEmployee.Adres);
                         command.Parameters.AddWithValue("@DogumTarihi", updatedEmployee.DogumTarihi);
                         command.Parameters.AddWithValue("@Fotograf", updatedEmployee.Fotograf);
-                        command.Parameters.AddWithValue("@Fotograf", updatedEmployee.Password);
+                        command.Parameters.AddWithValue("@Password", updatedEmployee.Password);
 
                         int rowsAffected = command.ExecuteNonQuery();
 

@@ -141,7 +141,7 @@ namespace ProjectManagement.Repositories
             }
         }
 
-        public static void DeleteEmployeeProject(int projectId)
+        public static void DeleteProject(int projectId)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionUtil.ConnectionString))
             {
@@ -172,6 +172,52 @@ namespace ProjectManagement.Repositories
                 using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
                 {
                     insertCommand.Parameters.AddWithValue("@ProjectId", projectId);
+                    try
+                    {
+                        insertCommand.ExecuteNonQuery();
+                        Console.WriteLine("Existing EmployeeProject records deleted successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error deleting existing EmployeeProject records: " + ex.Message);
+                        return; // Hata durumunda işlemi sonlandır
+                    }
+
+                    Console.WriteLine("EmployeeProject records updated successfully.");
+                }
+            }
+        }
+        public static void DeleteEmployee(int EmployeeId)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionUtil.ConnectionString))
+            {
+                connection.Open();
+
+                // Önce belirli bir projectId'ye sahip olan tüm satırları sil
+                string deleteQuery = "DELETE FROM EmployeeProject WHERE EmployeeId = @EmployeeId";
+
+                using (SqlCommand deleteCommand = new SqlCommand(deleteQuery, connection))
+                {
+                    deleteCommand.Parameters.AddWithValue("@EmployeeId", EmployeeId);
+
+                    try
+                    {
+                        deleteCommand.ExecuteNonQuery();
+                        Console.WriteLine("Existing EmployeeProject records deleted successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error deleting existing EmployeeProject records: " + ex.Message);
+                        return; // Hata durumunda işlemi sonlandır
+                    }
+                }
+
+                // Ardından yeni employeeId değerlerini ekleyerek insert işlemi gerçekleştir
+                string insertQuery = "DELETE FROM Employee WHERE Id = @EmployeeId;";
+
+                using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
+                {
+                    insertCommand.Parameters.AddWithValue("@EmployeeId", EmployeeId);
                     try
                     {
                         insertCommand.ExecuteNonQuery();

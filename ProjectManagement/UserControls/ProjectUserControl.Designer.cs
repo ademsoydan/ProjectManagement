@@ -30,6 +30,7 @@
         {
             this.projeTabControl = new System.Windows.Forms.TabControl();
             this.Tanim = new System.Windows.Forms.TabPage();
+            this.deleteButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.txtProblemTanimi = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -78,7 +79,6 @@
             this.parasalGetiri = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UpdateButton = new System.Windows.Forms.Button();
-            this.deleteButton = new System.Windows.Forms.Button();
             this.projeTabControl.SuspendLayout();
             this.Tanim.SuspendLayout();
             this.Tarih.SuspendLayout();
@@ -125,6 +125,16 @@
             this.Tanim.TabIndex = 0;
             this.Tanim.Text = "Tanim";
             this.Tanim.UseVisualStyleBackColor = true;
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(374, 191);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteButton.TabIndex = 13;
+            this.deleteButton.Text = "Delete";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            
             // 
             // button1
             // 
@@ -465,7 +475,7 @@
             this.button4.TabIndex = 5;
             this.button4.Text = "Projeyi Oluştur";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            
             // 
             // comboProjeDurumu
             // 
@@ -514,9 +524,9 @@
             this.parasalGetiri,
             this.id});
             this.projectDataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.projectDataGridView.Location = new System.Drawing.Point(0, 264);
+            this.projectDataGridView.Location = new System.Drawing.Point(0, 256);
             this.projectDataGridView.Name = "projectDataGridView";
-            this.projectDataGridView.Size = new System.Drawing.Size(742, 150);
+            this.projectDataGridView.Size = new System.Drawing.Size(742, 235);
             this.projectDataGridView.TabIndex = 1;
             this.projectDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.projectDataGridView_CellContentClick);
             // 
@@ -571,17 +581,7 @@
             this.UpdateButton.TabIndex = 12;
             this.UpdateButton.Text = "Güncelle";
             this.UpdateButton.UseVisualStyleBackColor = true;
-            this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
-            // 
-            // deleteButton
-            // 
-            this.deleteButton.Location = new System.Drawing.Point(374, 191);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(75, 23);
-            this.deleteButton.TabIndex = 13;
-            this.deleteButton.Text = "Delete";
-            this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+      
             // 
             // ProjectUserControl
             // 
@@ -590,7 +590,7 @@
             this.Controls.Add(this.projectDataGridView);
             this.Controls.Add(this.projeTabControl);
             this.Name = "ProjectUserControl";
-            this.Size = new System.Drawing.Size(742, 414);
+            this.Size = new System.Drawing.Size(742, 491);
             this.projeTabControl.ResumeLayout(false);
             this.Tanim.ResumeLayout(false);
             this.Tanim.PerformLayout();
@@ -659,7 +659,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Bitis;
         private System.Windows.Forms.DataGridViewTextBoxColumn parasalGetiri;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.Button UpdateButton;
         private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.Button UpdateButton;
     }
 }

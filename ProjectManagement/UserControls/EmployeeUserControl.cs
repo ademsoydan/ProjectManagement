@@ -22,7 +22,7 @@ namespace ProjectManagement.UserControls
             UpdateEmployeeGrid();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void SaveEmployee()
         {
             if (ControlInputs())
             {
@@ -126,12 +126,14 @@ namespace ProjectManagement.UserControls
             txtAdres.Text = employe.Adres;
             employeePicturebox.ImageLocation = employe.Fotograf;
             txtPassword.Text = employe.Password;
+            datedogumTarihi.Value = employe.DogumTarihi;
             LoadImageFromFile(employe.Fotograf);
 
         }
         private void updateSelectedEmployee()
         {
             selectedEmployee.Ad = txtAd.Text;
+            selectedEmployee.Soyad = txtSoyad.Text;
             selectedEmployee.Email = txtEmail.Text;
             selectedEmployee.Adres = txtAdres.Text;
             selectedEmployee.TelefonNumarasi = txtTelefon.Text;
@@ -140,24 +142,18 @@ namespace ProjectManagement.UserControls
             selectedEmployee.Password = txtPassword.Text;
         }
 
-        private void clearButton_Click(object sender, EventArgs e)
+        public void DeleteEmployee()
         {
-            ClearAll();
-        }
-
-        private void deleteButton_Click(object sender, EventArgs e)
-        {
-            if(selectedEmployee == null)
+            if (selectedEmployee == null)
             {
                 MessageBox.Show("Bir Kişi Seçmediniz", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                return;
             }
-            PersonRepository.DeleteById(selectedEmployee.Id);
+            ProjectEmployeeReposityory.DeleteEmployee(selectedEmployee.Id);
             ClearAll();
             UpdateEmployeeGrid();
         }
-
-        private void UpdateButton_Click(object sender, EventArgs e)
+        public void UpdateEmployee()
         {
             if (selectedEmployee == null)
             {
@@ -169,5 +165,6 @@ namespace ProjectManagement.UserControls
             ClearAll();
             UpdateEmployeeGrid();
         }
+
     }
 }

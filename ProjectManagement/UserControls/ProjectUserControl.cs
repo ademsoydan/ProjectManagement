@@ -125,6 +125,11 @@ namespace ProjectManagement.UserControls
         }
         public void UpdateProject()
         {
+            if (!AllInputsAreFilled())
+            {
+                MessageBox.Show("Eksik veri girişi yaptınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             ProjectRepository.UpdateProject(selectedProject.Id,txtProjeAdi.Text, txtStratejikEtki.Text,
             getComboboxKey(comboManager), txtAmac.Text, txtProblemTanimi.Text, txtKapsam.Text, DateTime.Today,
             dateBaslangic.Value, dateBitis.Value, dateTahminiBitis.Value, dateTahminiBaslangic.Value,
@@ -156,10 +161,6 @@ namespace ProjectManagement.UserControls
             return selectedKey;
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            SaveProject();
-        }
         private List<int> getSelectedEmployeeIds()
         {
             List<int> selectedKeys = new List<int>();
@@ -268,17 +269,13 @@ namespace ProjectManagement.UserControls
                 teamListBox.SetItemChecked(i, false);
             }
         }
-
-        private void UpdateButton_Click(object sender, EventArgs e)
+        
+        public void DeleteProject()
         {
-            UpdateProject();
-        }
-
-        private void deleteButton_Click(object sender, EventArgs e)
-        {
-            ProjectEmployeeReposityory.DeleteEmployeeProject(selectedProject.Id);
+            ProjectEmployeeReposityory.DeleteProject(selectedProject.Id);
             ClearAll();
             UpdateProjectGridView();
         }
+
     }
 }

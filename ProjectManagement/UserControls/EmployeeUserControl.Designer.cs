@@ -46,16 +46,7 @@
             this.pROJECTMANAGEMENTDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pROJECTMANAGEMENTDataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.employeeGridView = new System.Windows.Forms.DataGridView();
-            this.employeePicturebox = new System.Windows.Forms.PictureBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.UpdateButton = new System.Windows.Forms.Button();
-            this.deleteButton = new System.Windows.Forms.Button();
-            this.clearButton = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtPassword = new System.Windows.Forms.TextBox();
             this.Ad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.password = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.telefonNumarasi = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -65,10 +56,17 @@
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Adres = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dogumTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeePicturebox = new System.Windows.Forms.PictureBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.UpdateButton = new System.Windows.Forms.Button();
+            this.deleteButton = new System.Windows.Forms.Button();
+            this.clearButton = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtPassword = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pROJECTMANAGEMENTDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pROJECTMANAGEMENTDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pROJECTMANAGEMENTDataSetBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeePicturebox)).BeginInit();
             this.SuspendLayout();
@@ -193,15 +191,7 @@
             this.button1.TabIndex = 13;
             this.button1.Text = "Kaydet";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(456, 347);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 14;
+            
             // 
             // employeeGridView
             // 
@@ -217,83 +207,11 @@
             this.Adres,
             this.dogumTarihi});
             this.employeeGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.employeeGridView.Location = new System.Drawing.Point(0, 303);
+            this.employeeGridView.Location = new System.Drawing.Point(0, 264);
             this.employeeGridView.Name = "employeeGridView";
-            this.employeeGridView.Size = new System.Drawing.Size(743, 150);
+            this.employeeGridView.Size = new System.Drawing.Size(820, 255);
             this.employeeGridView.TabIndex = 15;
             this.employeeGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.employeeGridView_CellContentClick);
-            // 
-            // employeePicturebox
-            // 
-            this.employeePicturebox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.employeePicturebox.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.employeePicturebox.Image = ((System.Drawing.Image)(resources.GetObject("employeePicturebox.Image")));
-            this.employeePicturebox.InitialImage = ((System.Drawing.Image)(resources.GetObject("employeePicturebox.InitialImage")));
-            this.employeePicturebox.Location = new System.Drawing.Point(330, 22);
-            this.employeePicturebox.Name = "employeePicturebox";
-            this.employeePicturebox.Size = new System.Drawing.Size(201, 124);
-            this.employeePicturebox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.employeePicturebox.TabIndex = 16;
-            this.employeePicturebox.TabStop = false;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(399, 149);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(68, 13);
-            this.linkLabel1.TabIndex = 17;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Fotograf Sec";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // UpdateButton
-            // 
-            this.UpdateButton.Location = new System.Drawing.Point(363, 235);
-            this.UpdateButton.Name = "UpdateButton";
-            this.UpdateButton.Size = new System.Drawing.Size(75, 23);
-            this.UpdateButton.TabIndex = 18;
-            this.UpdateButton.Text = "Guncelle";
-            this.UpdateButton.UseVisualStyleBackColor = true;
-            this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
-            // 
-            // deleteButton
-            // 
-            this.deleteButton.Location = new System.Drawing.Point(282, 235);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(75, 23);
-            this.deleteButton.TabIndex = 19;
-            this.deleteButton.Text = "Sil";
-            this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
-            // 
-            // clearButton
-            // 
-            this.clearButton.Location = new System.Drawing.Point(189, 235);
-            this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(75, 23);
-            this.clearButton.TabIndex = 20;
-            this.clearButton.Text = "Temizle";
-            this.clearButton.UseVisualStyleBackColor = true;
-            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(26, 133);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(34, 13);
-            this.label7.TabIndex = 21;
-            this.label7.Text = "Şifre :";
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(92, 133);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(159, 20);
-            this.txtPassword.TabIndex = 22;
-            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // Ad
             // 
@@ -356,6 +274,75 @@
             this.dogumTarihi.Name = "dogumTarihi";
             this.dogumTarihi.ReadOnly = true;
             // 
+            // employeePicturebox
+            // 
+            this.employeePicturebox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.employeePicturebox.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.employeePicturebox.Image = ((System.Drawing.Image)(resources.GetObject("employeePicturebox.Image")));
+            this.employeePicturebox.InitialImage = ((System.Drawing.Image)(resources.GetObject("employeePicturebox.InitialImage")));
+            this.employeePicturebox.Location = new System.Drawing.Point(330, 22);
+            this.employeePicturebox.Name = "employeePicturebox";
+            this.employeePicturebox.Size = new System.Drawing.Size(201, 124);
+            this.employeePicturebox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.employeePicturebox.TabIndex = 16;
+            this.employeePicturebox.TabStop = false;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(399, 149);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(68, 13);
+            this.linkLabel1.TabIndex = 17;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Fotograf Sec";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // UpdateButton
+            // 
+            this.UpdateButton.Location = new System.Drawing.Point(363, 235);
+            this.UpdateButton.Name = "UpdateButton";
+            this.UpdateButton.Size = new System.Drawing.Size(75, 23);
+            this.UpdateButton.TabIndex = 18;
+            this.UpdateButton.Text = "Guncelle";
+            this.UpdateButton.UseVisualStyleBackColor = true;
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(282, 235);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteButton.TabIndex = 19;
+            this.deleteButton.Text = "Sil";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            // 
+            // clearButton
+            // 
+            this.clearButton.Location = new System.Drawing.Point(189, 235);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(75, 23);
+            this.clearButton.TabIndex = 20;
+            this.clearButton.Text = "Temizle";
+            this.clearButton.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(26, 133);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(34, 13);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Şifre :";
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(92, 133);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(159, 20);
+            this.txtPassword.TabIndex = 22;
+            this.txtPassword.UseSystemPasswordChar = true;
+            // 
             // EmployeeUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -368,7 +355,6 @@
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.employeePicturebox);
             this.Controls.Add(this.employeeGridView);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.datedogumTarihi);
             this.Controls.Add(this.label6);
@@ -383,11 +369,10 @@
             this.Controls.Add(this.txtAd);
             this.Controls.Add(this.label1);
             this.Name = "EmployeeUserControl";
-            this.Size = new System.Drawing.Size(743, 453);
+            this.Size = new System.Drawing.Size(820, 519);
             ((System.ComponentModel.ISupportInitialize)(this.pROJECTMANAGEMENTDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pROJECTMANAGEMENTDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pROJECTMANAGEMENTDataSetBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeePicturebox)).EndInit();
             this.ResumeLayout(false);
@@ -413,7 +398,6 @@
         private System.Windows.Forms.BindingSource pROJECTMANAGEMENTDataSetBindingSource;
         private System.Windows.Forms.BindingSource pROJECTMANAGEMENTDataSetBindingSource1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView employeeGridView;
         private System.Windows.Forms.PictureBox employeePicturebox;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
