@@ -31,6 +31,7 @@
             this.projeTabControl = new System.Windows.Forms.TabControl();
             this.Tanim = new System.Windows.Forms.TabPage();
             this.deleteButton = new System.Windows.Forms.Button();
+            this.UpdateButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.txtProblemTanimi = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -78,7 +79,6 @@
             this.Bitis = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.parasalGetiri = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UpdateButton = new System.Windows.Forms.Button();
             this.projeTabControl.SuspendLayout();
             this.Tanim.SuspendLayout();
             this.Tarih.SuspendLayout();
@@ -134,7 +134,15 @@
             this.deleteButton.TabIndex = 13;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
-            
+            // 
+            // UpdateButton
+            // 
+            this.UpdateButton.Location = new System.Drawing.Point(285, 191);
+            this.UpdateButton.Name = "UpdateButton";
+            this.UpdateButton.Size = new System.Drawing.Size(75, 23);
+            this.UpdateButton.TabIndex = 12;
+            this.UpdateButton.Text = "Güncelle";
+            this.UpdateButton.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -375,6 +383,7 @@
             this.comboManager.Name = "comboManager";
             this.comboManager.Size = new System.Drawing.Size(121, 21);
             this.comboManager.TabIndex = 2;
+            this.comboManager.SelectedIndexChanged += new System.EventHandler(this.comboManager_SelectedIndexChanged);
             // 
             // label12
             // 
@@ -475,7 +484,6 @@
             this.button4.TabIndex = 5;
             this.button4.Text = "Projeyi Oluştur";
             this.button4.UseVisualStyleBackColor = true;
-            
             // 
             // comboProjeDurumu
             // 
@@ -572,16 +580,6 @@
             this.id.HeaderText = "projeId";
             this.id.Name = "id";
             this.id.Visible = false;
-            // 
-            // UpdateButton
-            // 
-            this.UpdateButton.Location = new System.Drawing.Point(285, 191);
-            this.UpdateButton.Name = "UpdateButton";
-            this.UpdateButton.Size = new System.Drawing.Size(75, 23);
-            this.UpdateButton.TabIndex = 12;
-            this.UpdateButton.Text = "Güncelle";
-            this.UpdateButton.UseVisualStyleBackColor = true;
-      
             // 
             // ProjectUserControl
             // 

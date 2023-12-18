@@ -216,6 +216,12 @@
     <Compile Include="UserControls\ProjectUserControl.Designer.cs">
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TaskDetailUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TaskDetailUserControl.Designer.cs">
+      <DependentUpon>TaskDetailUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TaskUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -264,6 +270,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ProjectUserControl.resx">
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TaskDetailUserControl.resx">
+      <DependentUpon>TaskDetailUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\TaskUserControl.resx">
       <DependentUpon>TaskUserControl.cs</DependentUpon>

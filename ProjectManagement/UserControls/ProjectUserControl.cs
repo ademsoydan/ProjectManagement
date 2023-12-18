@@ -277,5 +277,9 @@ namespace ProjectManagement.UserControls
             UpdateProjectGridView();
         }
 
+        private void comboManager_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

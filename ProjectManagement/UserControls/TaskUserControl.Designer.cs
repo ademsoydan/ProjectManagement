@@ -80,7 +80,8 @@
             this.treeProje.Name = "treeProje";
             this.treeProje.Size = new System.Drawing.Size(205, 457);
             this.treeProje.TabIndex = 1;
-            this.treeProje.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeProje_NodeMouseDoubleClick);
+            this.treeProje.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeProje_AfterSelect);
+
             // 
             // TaskUserControl
             // 

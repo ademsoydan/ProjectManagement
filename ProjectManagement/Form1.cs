@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -54,36 +55,44 @@ namespace ProjectManagement
             activeUserControl.Dock = DockStyle.Fill;
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e) 
         {
             if (activeUserControl is EmployeeUserControl)
                 employeeUserControl.SaveEmployee();
-            else if(activeUserControl is ProjectUserControl){ }
+            else if (activeUserControl is ProjectUserControl)
                 projectUserControl.SaveProject();
+            else if (activeUserControl is TaskUserControl)
+                taskUserControl.Save();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (activeUserControl is EmployeeUserControl)
                 employeeUserControl.UpdateEmployee();
-            else if (activeUserControl is ProjectUserControl) { }
+            else if (activeUserControl is ProjectUserControl)
                 projectUserControl.UpdateProject();
+            else if (activeUserControl is TaskUserControl)
+                taskUserControl.UpdateTaskUserControl();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (activeUserControl is EmployeeUserControl)
                 employeeUserControl.DeleteEmployee();
-            else if (activeUserControl is ProjectUserControl) { }
+            else if (activeUserControl is ProjectUserControl) 
                 projectUserControl.DeleteProject();
+            else if (activeUserControl is TaskUserControl) { }
+                taskUserControl.DeleteTaskUserControl();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
             if (activeUserControl is EmployeeUserControl)
                 employeeUserControl.ClearAll();
-            else if (activeUserControl is ProjectUserControl) { }
+            else if (activeUserControl is ProjectUserControl) 
                 projectUserControl.ClearAll();
+            else if (activeUserControl is TaskUserControl) { }
+                taskUserControl.ClearAllUserControl();
         }
     }
 }

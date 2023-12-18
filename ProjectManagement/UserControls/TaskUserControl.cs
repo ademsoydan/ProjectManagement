@@ -15,14 +15,17 @@ namespace ProjectManagement.UserControls
 {
     public partial class TaskUserControl : UserControl
     {
+        PointUserControl pointUserControl = null;
+        TaskDetailUserControl taskDetailUserControl = null;
         public TaskUserControl()
         {
             InitializeComponent();
             LoadProjectsIntoTreeView();
         }
 
-        private void LoadProjectsIntoTreeView()
+        public void LoadProjectsIntoTreeView()
         {
+            treeProje.Nodes.Clear();
             List<TreeResponse> tree = ProjectRepository.GetTreeInfo();
             if (tree.Count == 0)
                 return;
@@ -53,25 +56,60 @@ namespace ProjectManagement.UserControls
                 }
             }
         }
-
-        private void treeProje_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void treeProje_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Tag != null)
             {
                 // Tag özelliği Proje sınıfına ait mi diye kontrol et
                 if (e.Node.Tag is Project)
                 {
+                    taskDetailUserControl = null;
                     Project proje = (Project)e.Node.Tag;
                     pnlTree.Controls.Clear();
-                    BindingSource source = PointRepository.getPointByProjectId(proje.Id);
-                    PointUserControl pointUserControl = new PointUserControl(source);
+                    pointUserControl = new PointUserControl(this, proje.Id);
                     pointUserControl.Dock = DockStyle.Fill;
                     pnlTree.Controls.Add(pointUserControl);
                 }
                 else if (e.Node.Tag is Entities.Point)
                 {
-                    Entities.Point proje = (Entities.Point)e.Node.Tag;
+                    pointUserControl = null;
+                    pnlTree.Controls.Clear();
+                    Entities.Point point = (Entities.Point)e.Node.Tag;
+                    taskDetailUserControl = new TaskDetailUserControl(this, point.Id);
+                    pointUserControl.Dock = DockStyle.Fill;
+                    pnlTree.Controls.Add(pointUserControl);
                 }
+            }
+        }
+
+        public void Save()
+        {
+            if(pointUserControl != null)
+            {
+                pointUserControl.SavePoint();
+            }
+        }
+        public void UpdateTaskUserControl()
+        {
+            if (pointUserControl != null)
+            {
+                pointUserControl.UpdatePoint();
+            }
+        }
+
+        public void DeleteTaskUserControl()
+        {
+            if (pointUserControl != null)
+            {
+                pointUserControl.DeletePoint();
+            }
+        }
+
+        public void ClearAllUserControl()
+        {
+            if (pointUserControl != null)
+            {
+                pointUserControl.ClearAll();
             }
         }
 
@@ -90,6 +128,6 @@ namespace ProjectManagement.UserControls
 
         }
 
-    
+
     }
 }
