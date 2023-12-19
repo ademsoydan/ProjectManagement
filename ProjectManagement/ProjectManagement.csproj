@@ -198,12 +198,15 @@
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\ProjectTask.cs" />
     <Compile Include="Entities\TreeResponse.cs" />
+    <Compile Include="Enums\ProjectStatuses.cs" />
     <Compile Include="Enums\IncomeType.cs" />
     <Compile Include="Enums\ProjectStatus.cs" />
     <Compile Include="Enums\ProjectType.cs" />
+    <Compile Include="Interfaces\IUserControl.cs" />
     <Compile Include="Repositories\PointRepository.cs" />
     <Compile Include="Repositories\ProjectEmployeeRepository.cs" />
     <Compile Include="Repositories\ProjectRepository.cs" />
+    <Compile Include="Repositories\TaskRepository.cs" />
     <Compile Include="UserControls\PointUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

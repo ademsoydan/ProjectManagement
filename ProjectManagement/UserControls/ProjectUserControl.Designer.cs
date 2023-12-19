@@ -30,8 +30,6 @@
         {
             this.projeTabControl = new System.Windows.Forms.TabControl();
             this.Tanim = new System.Windows.Forms.TabPage();
-            this.deleteButton = new System.Windows.Forms.Button();
-            this.UpdateButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.txtProblemTanimi = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -79,6 +77,7 @@
             this.Bitis = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.parasalGetiri = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.projeTabControl.SuspendLayout();
             this.Tanim.SuspendLayout();
             this.Tarih.SuspendLayout();
@@ -87,6 +86,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericGetiri)).BeginInit();
             this.Durum.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectDataGridView)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // projeTabControl
@@ -96,17 +96,15 @@
             this.projeTabControl.Controls.Add(this.Ekip);
             this.projeTabControl.Controls.Add(this.Maddi);
             this.projeTabControl.Controls.Add(this.Durum);
-            this.projeTabControl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.projeTabControl.Location = new System.Drawing.Point(0, 0);
+            this.projeTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.projeTabControl.Location = new System.Drawing.Point(3, 3);
             this.projeTabControl.Name = "projeTabControl";
             this.projeTabControl.SelectedIndex = 0;
-            this.projeTabControl.Size = new System.Drawing.Size(742, 250);
+            this.projeTabControl.Size = new System.Drawing.Size(736, 362);
             this.projeTabControl.TabIndex = 0;
             // 
             // Tanim
             // 
-            this.Tanim.Controls.Add(this.deleteButton);
-            this.Tanim.Controls.Add(this.UpdateButton);
             this.Tanim.Controls.Add(this.button1);
             this.Tanim.Controls.Add(this.txtProblemTanimi);
             this.Tanim.Controls.Add(this.label5);
@@ -121,32 +119,14 @@
             this.Tanim.Location = new System.Drawing.Point(4, 22);
             this.Tanim.Name = "Tanim";
             this.Tanim.Padding = new System.Windows.Forms.Padding(3);
-            this.Tanim.Size = new System.Drawing.Size(734, 224);
+            this.Tanim.Size = new System.Drawing.Size(728, 336);
             this.Tanim.TabIndex = 0;
             this.Tanim.Text = "Tanim";
             this.Tanim.UseVisualStyleBackColor = true;
             // 
-            // deleteButton
-            // 
-            this.deleteButton.Location = new System.Drawing.Point(374, 191);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(75, 23);
-            this.deleteButton.TabIndex = 13;
-            this.deleteButton.Text = "Delete";
-            this.deleteButton.UseVisualStyleBackColor = true;
-            // 
-            // UpdateButton
-            // 
-            this.UpdateButton.Location = new System.Drawing.Point(285, 191);
-            this.UpdateButton.Name = "UpdateButton";
-            this.UpdateButton.Size = new System.Drawing.Size(75, 23);
-            this.UpdateButton.TabIndex = 12;
-            this.UpdateButton.Text = "Güncelle";
-            this.UpdateButton.UseVisualStyleBackColor = true;
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(455, 191);
+            this.button1.Location = new System.Drawing.Point(455, 181);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 11;
@@ -156,7 +136,7 @@
             // 
             // txtProblemTanimi
             // 
-            this.txtProblemTanimi.Location = new System.Drawing.Point(110, 155);
+            this.txtProblemTanimi.Location = new System.Drawing.Point(110, 145);
             this.txtProblemTanimi.Multiline = true;
             this.txtProblemTanimi.Name = "txtProblemTanimi";
             this.txtProblemTanimi.Size = new System.Drawing.Size(151, 59);
@@ -165,7 +145,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 158);
+            this.label5.Location = new System.Drawing.Point(19, 148);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(85, 13);
             this.label5.TabIndex = 9;
@@ -522,6 +502,8 @@
             // 
             // projectDataGridView
             // 
+            this.projectDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.projectDataGridView.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.projectDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.projectDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ProjectNo,
@@ -531,10 +513,10 @@
             this.Bitis,
             this.parasalGetiri,
             this.id});
-            this.projectDataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.projectDataGridView.Location = new System.Drawing.Point(0, 256);
+            this.projectDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.projectDataGridView.Location = new System.Drawing.Point(3, 371);
             this.projectDataGridView.Name = "projectDataGridView";
-            this.projectDataGridView.Size = new System.Drawing.Size(742, 235);
+            this.projectDataGridView.Size = new System.Drawing.Size(736, 117);
             this.projectDataGridView.TabIndex = 1;
             this.projectDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.projectDataGridView_CellContentClick);
             // 
@@ -581,12 +563,26 @@
             this.id.Name = "id";
             this.id.Visible = false;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.projeTabControl, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.projectDataGridView, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(742, 491);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
             // ProjectUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.projectDataGridView);
-            this.Controls.Add(this.projeTabControl);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ProjectUserControl";
             this.Size = new System.Drawing.Size(742, 491);
             this.projeTabControl.ResumeLayout(false);
@@ -602,6 +598,7 @@
             this.Durum.ResumeLayout(false);
             this.Durum.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectDataGridView)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -657,7 +654,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Bitis;
         private System.Windows.Forms.DataGridViewTextBoxColumn parasalGetiri;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.Button deleteButton;
-        private System.Windows.Forms.Button UpdateButton;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

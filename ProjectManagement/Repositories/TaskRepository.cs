@@ -1,4 +1,5 @@
-﻿using ProjectManagement.Entities;
+﻿using DevExpress.XtraPrinting.HtmlExport.Native;
+using ProjectManagement.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -10,9 +11,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace ProjectManagement.Repositories
 {
-    public static class PointRepository
+    public static class TaskRepository
     {
-        public static BindingSource getPointByProjectId(int projectId)
+        public static BindingSource GetTaskByPointId(int pointId)
         {
             BindingSource bindingSource = new BindingSource();
 
@@ -22,11 +23,11 @@ namespace ProjectManagement.Repositories
                 {
                     connection.Open();
 
-                    string selectQuery = "SELECT Id, durak_ismi, baslangic_tarihi, bitis_tarihi FROM Durak Where proje_id = @projectId";
+                    string selectQuery = "SELECT T.Id, T.task_ismi, T.baslangic_tarihi, T.bitis_tarihi, T.durum, E.ad as ad\r\nFROM Task T Left join Employee E on T.employee_id = E.Id where durak_id = @point_id";
 
                     using (SqlCommand command = new SqlCommand(selectQuery, connection))
                     {
-                        command.Parameters.AddWithValue("@projectId", projectId);
+                        command.Parameters.AddWithValue("@point_id", pointId);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             // DataTable oluştur ve verileri yükle
@@ -48,7 +49,7 @@ namespace ProjectManagement.Repositories
             return bindingSource;
         }
 
-        public static Entities.Point GetById(int id)
+        public static ProjectTask GetById(int id)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionUtil.ConnectionString))
             {
@@ -56,7 +57,7 @@ namespace ProjectManagement.Repositories
                 {
                     connection.Open();
 
-                    string selectQuery = "SELECT Id, durak_ismi, baslangic_tarihi, bitis_tarihi FROM Durak Where Id = @id";
+                    string selectQuery = "SELECT Id, task_ismi, baslangic_tarihi, bitis_tarihi, durum, employee_id FROM Task Where Id = @id";
 
                     using (SqlCommand command = new SqlCommand(selectQuery, connection))
                     {
@@ -67,12 +68,14 @@ namespace ProjectManagement.Repositories
                         {
                             if (reader.Read())
                             {
-                                Entities.Point point = new Point();
-                                point.Id = Convert.ToInt32(reader["Id"]);
-                                point.PointName = reader["durak_ismi"].ToString();
-                                point.BaslangicTarihi = Convert.ToDateTime(reader["baslangic_tarihi"]);
-                                point.BitisTarihi = Convert.ToDateTime(reader["bitis_tarihi"]);
-                                return point;
+                                ProjectTask task = new ProjectTask();
+                                task.Id = Convert.ToInt32(reader["Id"]);
+                                task.TaskName = reader["task_ismi"].ToString();
+                                task.BaslangicTarihi = Convert.ToDateTime(reader["baslangic_tarihi"]);
+                                task.BitisTarihi = Convert.ToDateTime(reader["bitis_tarihi"]);
+                                task.Status = Convert.ToInt32(reader["durum"]);
+                                task.employeeId = Convert.ToInt32(reader["employee_id"]);
+                                return task;
                             }
                             else
                             {
@@ -89,7 +92,7 @@ namespace ProjectManagement.Repositories
             }
         }
 
-        public static void SavePoint(string durak_ismi, DateTime baslangic_tarihi, DateTime bitis_tarihi, int proje_id)
+        public static void SaveTask(ProjectTask task)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionUtil.ConnectionString))
             {
@@ -98,17 +101,19 @@ namespace ProjectManagement.Repositories
                     connection.Open();
 
                     // Veritabanına ekleme sorgusu
-                    string insertQuery = "INSERT INTO Durak (durak_ismi, baslangic_tarihi, bitis_tarihi, proje_id) " +
-                                         "VALUES (@durak_ismi, @baslangic_tarihi, @bitis_tarihi , @proje_id)";
+                    string insertQuery = "INSERT INTO Task (task_ismi, baslangic_tarihi, bitis_tarihi, durum, durak_id, employee_id) " +
+                                         "VALUES (@task_ismi, @baslangic_tarihi, @bitis_tarihi , @durum ,@durak_id, @employee_id)";
 
                     // SqlCommand ve SqlParameter kullanarak sorguyu hazırla
                     using (SqlCommand command = new SqlCommand(insertQuery, connection))
                     {
                         // Parametreleri belirle
-                        command.Parameters.AddWithValue("@durak_ismi", durak_ismi);
-                        command.Parameters.AddWithValue("@baslangic_tarihi", baslangic_tarihi);
-                        command.Parameters.AddWithValue("@bitis_tarihi", bitis_tarihi);
-                        command.Parameters.AddWithValue("@proje_id", proje_id);
+                        command.Parameters.AddWithValue("@task_ismi", task.TaskName);
+                        command.Parameters.AddWithValue("@baslangic_tarihi", task.BaslangicTarihi);
+                        command.Parameters.AddWithValue("@bitis_tarihi", task.BitisTarihi);
+                        command.Parameters.AddWithValue("@durum", task.Status);
+                        command.Parameters.AddWithValue("@durak_id", task.pointId);
+                        command.Parameters.AddWithValue("@employee_id", task.employeeId);
 
                         // Sorguyu çalıştır
                         command.ExecuteNonQuery();
@@ -122,7 +127,7 @@ namespace ProjectManagement.Repositories
                 }
             }
         }
-        public static bool UpdatePoint(Entities.Point selectedPoint)
+        public static bool UpdateTask(ProjectTask task)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionUtil.ConnectionString))
             {
@@ -130,15 +135,17 @@ namespace ProjectManagement.Repositories
                 {
                     connection.Open();
 
-                    string updateQuery = "UPDATE Durak SET durak_ismi = @PointName, baslangic_tarihi = @baslangic_tarihi, bitis_tarihi = @bitis_tarihi WHERE Id = @Id";
+                    string updateQuery = "UPDATE Task SET task_ismi = @task_ismi, baslangic_tarihi = @baslangic_tarihi, bitis_tarihi = @bitis_tarihi, durum = @durum employee_id = @employee_id WHERE Id = @Id";
 
                     using (SqlCommand command = new SqlCommand(updateQuery, connection))
                     {
                         // Parametreleri belirle
-                        command.Parameters.AddWithValue("@Id", selectedPoint.Id);
-                        command.Parameters.AddWithValue("@PointName", selectedPoint.PointName);
-                        command.Parameters.AddWithValue("@baslangic_tarihi", selectedPoint.BaslangicTarihi);
-                        command.Parameters.AddWithValue("@bitis_tarihi", selectedPoint.BitisTarihi);
+                        command.Parameters.AddWithValue("@task_ismi", task.TaskName);
+                        command.Parameters.AddWithValue("@baslangic_tarihi", task.BaslangicTarihi);
+                        command.Parameters.AddWithValue("@bitis_tarihi", task.BitisTarihi);
+                        command.Parameters.AddWithValue("@durum", task.Status);
+                        command.Parameters.AddWithValue("@employee_id", task.employeeId);
+
                         int rowsAffected = command.ExecuteNonQuery();
 
                         if (rowsAffected > 0)
@@ -161,8 +168,7 @@ namespace ProjectManagement.Repositories
 
             return false;
         }
-
-        public static void DeletePoint(int pointId)
+        public static void DeleteTask(int taskId)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionUtil.ConnectionString))
             {
@@ -170,18 +176,18 @@ namespace ProjectManagement.Repositories
                 {
                     connection.Open();
 
-                    string deleteQuery = "Delete FROM Durak where Id = @Id";
+                    string deleteQuery = "Delete FROM Task where Id = @Id";
 
                     using (SqlCommand command = new SqlCommand(deleteQuery, connection))
                     {
                         // Parametreleri belirle
-                        command.Parameters.AddWithValue("@Id", pointId);
+                        command.Parameters.AddWithValue("@Id", taskId);
                         int rowsAffected = command.ExecuteNonQuery();
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Veri güncelleme hatası: " + ex.Message);
+                    MessageBox.Show("Veri silme hatası: " + ex.Message);
                 }
             }
         }

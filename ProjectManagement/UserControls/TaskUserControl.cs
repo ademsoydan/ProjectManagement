@@ -17,10 +17,12 @@ namespace ProjectManagement.UserControls
     {
         PointUserControl pointUserControl = null;
         TaskDetailUserControl taskDetailUserControl = null;
+        
         public TaskUserControl()
         {
             InitializeComponent();
             LoadProjectsIntoTreeView();
+           
         }
 
         public void LoadProjectsIntoTreeView()
@@ -47,6 +49,7 @@ namespace ProjectManagement.UserControls
                 {
                     lastPointId = tree[i].Point.Id;
                     currentPointnode = new TreeNode(tree[i].Point.PointName);
+                    currentPointnode.Tag = tree[i].Point;
                     currentProjectNode.Nodes.Add(currentPointnode);
                 }
                 if (tree[i].Task.Id != -1)
@@ -56,7 +59,42 @@ namespace ProjectManagement.UserControls
                 }
             }
         }
-        private void treeProje_AfterSelect(object sender, TreeViewEventArgs e)
+        public void Save()
+        {
+            if(pointUserControl != null)
+            {
+                pointUserControl.SavePoint();
+            }
+            else if(taskDetailUserControl != null) {  taskDetailUserControl.SaveTask(); }
+        }
+        public void UpdateTaskUserControl()
+        {
+            if (pointUserControl != null)
+            {
+                pointUserControl.UpdatePoint();
+            }
+            else if (taskDetailUserControl != null) { taskDetailUserControl.UpdateTask(); }
+        }
+
+        public void DeleteTaskUserControl()
+        {
+            if (pointUserControl != null)
+            {
+                pointUserControl.DeletePoint();
+            }
+            else if (taskDetailUserControl != null) { taskDetailUserControl.DeleteTask(); }
+        }
+
+        public void ClearAllUserControl()
+        {
+            if (pointUserControl != null)
+            {
+                pointUserControl.ClearAll();
+            }
+            else if (taskDetailUserControl != null) { taskDetailUserControl.ClearAll(); }
+        }
+
+        private void treeProje_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.Tag != null)
             {
@@ -76,58 +114,15 @@ namespace ProjectManagement.UserControls
                     pnlTree.Controls.Clear();
                     Entities.Point point = (Entities.Point)e.Node.Tag;
                     taskDetailUserControl = new TaskDetailUserControl(this, point.Id);
-                    pointUserControl.Dock = DockStyle.Fill;
-                    pnlTree.Controls.Add(pointUserControl);
+                    taskDetailUserControl.Dock = DockStyle.Fill;
+                    pnlTree.Controls.Add(taskDetailUserControl);
                 }
             }
         }
 
-        public void Save()
-        {
-            if(pointUserControl != null)
-            {
-                pointUserControl.SavePoint();
-            }
-        }
-        public void UpdateTaskUserControl()
-        {
-            if (pointUserControl != null)
-            {
-                pointUserControl.UpdatePoint();
-            }
-        }
-
-        public void DeleteTaskUserControl()
-        {
-            if (pointUserControl != null)
-            {
-                pointUserControl.DeletePoint();
-            }
-        }
-
-        public void ClearAllUserControl()
-        {
-            if (pointUserControl != null)
-            {
-                pointUserControl.ClearAll();
-            }
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void treeProje_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
         }
-
-        private void treeView2_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
     }
 }

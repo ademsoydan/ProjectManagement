@@ -81,7 +81,7 @@ namespace ProjectManagement
                 employeeUserControl.DeleteEmployee();
             else if (activeUserControl is ProjectUserControl) 
                 projectUserControl.DeleteProject();
-            else if (activeUserControl is TaskUserControl) { }
+            else if (activeUserControl is TaskUserControl) 
                 taskUserControl.DeleteTaskUserControl();
         }
 
@@ -91,7 +91,7 @@ namespace ProjectManagement
                 employeeUserControl.ClearAll();
             else if (activeUserControl is ProjectUserControl) 
                 projectUserControl.ClearAll();
-            else if (activeUserControl is TaskUserControl) { }
+            else if (activeUserControl is TaskUserControl) 
                 taskUserControl.ClearAllUserControl();
         }
     }

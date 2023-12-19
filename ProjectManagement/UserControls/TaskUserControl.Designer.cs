@@ -50,7 +50,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(701, 463);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
+            
             // 
             // tableLayoutPanel2
             // 
@@ -81,6 +81,7 @@
             this.treeProje.Size = new System.Drawing.Size(205, 457);
             this.treeProje.TabIndex = 1;
             this.treeProje.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeProje_AfterSelect);
+            this.treeProje.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeProje_NodeMouseDoubleClick);
 
             // 
             // TaskUserControl

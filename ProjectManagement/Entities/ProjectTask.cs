@@ -13,5 +13,7 @@ namespace ProjectManagement.Entities
         public DateTime BaslangicTarihi { get; set; }
         public DateTime BitisTarihi { get; set; }
         public int Status { get; set; }
+        public int employeeId { get; set; }
+        public int pointId { get; set; }
     }
 }
