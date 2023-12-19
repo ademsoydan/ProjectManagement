@@ -234,6 +234,7 @@
             this.linkLabel1.TabIndex = 52;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Fotograf Sec";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_1);
             // 
             // employeePicturebox
             // 

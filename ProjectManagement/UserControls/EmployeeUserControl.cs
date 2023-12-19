@@ -10,36 +10,17 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using ProjectManagement.Repositories;
 using ProjectManagement.Entities;
+using ProjectManagement.Interfaces;
 
 namespace ProjectManagement.UserControls
 {
-    public partial class EmployeeUserControl : UserControl
+    public partial class EmployeeUserControl : UserControl, IUserControl
     {
         Employee selectedEmployee = null;
         public EmployeeUserControl()
         {
             InitializeComponent();
             UpdateEmployeeGrid();
-        }
-
-        public void SaveEmployee()
-        {
-            if (ControlInputs())
-            {
-                MessageBox.Show("Tüm alanları doldurunuz", "Eksik veri", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            string ad = txtAd.Text;
-            string soyad = txtSoyad.Text;
-            string email = txtEmail.Text;
-            string telefon = txtTelefon.Text;
-            string adres = txtAdres.Text;
-            DateTime dogumTarihi = datedogumTarihi.Value;
-            string passwordd = txtPassword.Text;
-            PersonRepository.SavePerson(ad, soyad, email, telefon, adres, dogumTarihi, employeePicturebox.ImageLocation,passwordd);
-            UpdateEmployeeGrid();
-            ClearAll();
         }
 
         private void UpdateEmployeeGrid()
@@ -60,33 +41,6 @@ namespace ProjectManagement.UserControls
 
         }
 
-        public void ClearAll()
-        {
-            txtAd.Text = null;
-            txtAdres.Text = null;
-            txtEmail.Text = null;
-            txtSoyad.Text = null;
-            txtTelefon.Text = null;
-            employeePicturebox.ImageLocation = null;
-            employeePicturebox.Image = null;
-            selectedEmployee = null;
-            txtPassword.Text = null;
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Filter = "Resim Dosyaları|*.jpg;*.jpeg;*.png;*.gif;*.bmp|Tüm Dosyalar|*.*";
-                openFileDialog.Title = "Fotoğraf Seç";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    employeePicturebox.ImageLocation = openFileDialog.FileName;
-                    LoadImageFromFile(openFileDialog.FileName);
-                }
-            }
-        }
 
         private void employeeGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -142,18 +96,27 @@ namespace ProjectManagement.UserControls
             selectedEmployee.Password = txtPassword.Text;
         }
 
-        public void DeleteEmployee()
+        public void SaveOperation()
         {
-            if (selectedEmployee == null)
+            if (ControlInputs())
             {
-                MessageBox.Show("Bir Kişi Seçmediniz", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Tüm alanları doldurunuz", "Eksik veri", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            ProjectEmployeeReposityory.DeleteEmployee(selectedEmployee.Id);
-            ClearAll();
+
+            string ad = txtAd.Text;
+            string soyad = txtSoyad.Text;
+            string email = txtEmail.Text;
+            string telefon = txtTelefon.Text;
+            string adres = txtAdres.Text;
+            DateTime dogumTarihi = datedogumTarihi.Value;
+            string passwordd = txtPassword.Text;
+            PersonRepository.SavePerson(ad, soyad, email, telefon, adres, dogumTarihi, employeePicturebox.ImageLocation, passwordd);
             UpdateEmployeeGrid();
+            ClearOperation();
         }
-        public void UpdateEmployee()
+
+        public void UpdateOperation()
         {
             if (selectedEmployee == null)
             {
@@ -162,9 +125,48 @@ namespace ProjectManagement.UserControls
             }
             updateSelectedEmployee();
             PersonRepository.UpdateEmployee(selectedEmployee);
-            ClearAll();
+            ClearOperation();
             UpdateEmployeeGrid();
         }
 
+        public void DeleteOperation()
+        {
+            if (selectedEmployee == null)
+            {
+                MessageBox.Show("Bir Kişi Seçmediniz", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            ProjectEmployeeReposityory.DeleteEmployee(selectedEmployee.Id);
+            ClearOperation();
+            UpdateEmployeeGrid();
+        }
+
+        public void ClearOperation()
+        {
+            txtAd.Text = null;
+            txtAdres.Text = null;
+            txtEmail.Text = null;
+            txtSoyad.Text = null;
+            txtTelefon.Text = null;
+            employeePicturebox.ImageLocation = null;
+            employeePicturebox.Image = null;
+            selectedEmployee = null;
+            txtPassword.Text = null;
+        }
+
+        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Resim Dosyaları|*.jpg;*.jpeg;*.png;*.gif;*.bmp|Tüm Dosyalar|*.*";
+                openFileDialog.Title = "Fotoğraf Seç";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    employeePicturebox.ImageLocation = openFileDialog.FileName;
+                    LoadImageFromFile(openFileDialog.FileName);
+                }
+            }
+        }
     }
 }

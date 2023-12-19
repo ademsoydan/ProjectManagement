@@ -225,7 +225,7 @@ namespace ProjectManagement.Repositories
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Error deleting existing EmployeeProject records: " + ex.Message);
+                        MessageBox.Show("Bu Çalışan aktif olarak bir projeden veya tasktan sorumlu, Bu işlemi yapamazsınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return; // Hata durumunda işlemi sonlandır
                     }
 

@@ -1,6 +1,7 @@
 ﻿using DevExpress.Xpo;
 using ProjectManagement.Entities;
 using ProjectManagement.Enums;
+using ProjectManagement.Interfaces;
 using ProjectManagement.Repositories;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ using System.Windows.Forms;
 
 namespace ProjectManagement.UserControls
 {
-    public partial class ProjectUserControl : UserControl
+    public partial class ProjectUserControl : UserControl, IUserControl
     {
         Project selectedProject = null;
         public ProjectUserControl()
@@ -105,39 +106,6 @@ namespace ProjectManagement.UserControls
 
         }
 
-        public void SaveProject()
-        {
-            if (!AllInputsAreFilled())
-            {
-                MessageBox.Show("Eksik veri girişi yaptınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            int insertedProjecId = ProjectRepository.SaveProject(txtProjeAdi.Text, txtStratejikEtki.Text,
-                getComboboxKey(comboManager), txtAmac.Text, txtProblemTanimi.Text, txtKapsam.Text, DateTime.Today,
-                dateBaslangic.Value, dateBitis.Value, dateTahminiBitis.Value, dateTahminiBaslangic.Value,
-                getComboboxKey(comboProjeDurumu), numericGetiri.Value, getComboboxKey(comboGelirTipi),
-                getComboboxKey(comboProjeTipi));
-
-            if (insertedProjecId != -1)
-            {
-                ProjectEmployeeReposityory.SaveEmployeesInProject(insertedProjecId, getSelectedEmployeeIds());
-            }
-        }
-        public void UpdateProject()
-        {
-            if (!AllInputsAreFilled())
-            {
-                MessageBox.Show("Eksik veri girişi yaptınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            ProjectRepository.UpdateProject(selectedProject.Id,txtProjeAdi.Text, txtStratejikEtki.Text,
-            getComboboxKey(comboManager), txtAmac.Text, txtProblemTanimi.Text, txtKapsam.Text, DateTime.Today,
-            dateBaslangic.Value, dateBitis.Value, dateTahminiBitis.Value, dateTahminiBaslangic.Value,
-            getComboboxKey(comboProjeDurumu), numericGetiri.Value, getComboboxKey(comboGelirTipi),
-             getComboboxKey(comboProjeTipi));
-            ProjectEmployeeReposityory.UpdateEmployeeProject(selectedProject.Id, getSelectedEmployeeIds());
-            UpdateProjectGridView();
-        }
         public bool AllInputsAreFilled()
         {
             return string.IsNullOrEmpty(txtProjeAdi.Text) ||
@@ -191,7 +159,7 @@ namespace ProjectManagement.UserControls
 
         private void projectDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            ClearAll();
+            ClearOperation();
             int columnIndex = e.ColumnIndex;
 
             if (columnIndex != -1)
@@ -252,8 +220,66 @@ namespace ProjectManagement.UserControls
             }
         }
 
-        public void ClearAll()
+        private void comboManager_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+
+        public void SaveOperation()
+        {
+            if (AllInputsAreFilled())
+            {
+                MessageBox.Show("Eksik veri girişi yaptınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            int insertedProjecId = ProjectRepository.SaveProject(txtProjeAdi.Text, txtStratejikEtki.Text,
+                getComboboxKey(comboManager), txtAmac.Text, txtProblemTanimi.Text, txtKapsam.Text, DateTime.Today,
+                dateBaslangic.Value, dateBitis.Value, dateTahminiBitis.Value, dateTahminiBaslangic.Value,
+                getComboboxKey(comboProjeDurumu), numericGetiri.Value, getComboboxKey(comboGelirTipi),
+                getComboboxKey(comboProjeTipi));
+
+            if (insertedProjecId != -1)
+            {
+                ProjectEmployeeReposityory.SaveEmployeesInProject(insertedProjecId, getSelectedEmployeeIds());
+            }
+            AfterCrud();
+        }
+
+        public void UpdateOperation()
+        {
+            if (selectedProject == null)
+            {
+                MessageBox.Show("Bir Proje Seçmediniz", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (AllInputsAreFilled())
+            {
+                MessageBox.Show("Eksik veri girişi yaptınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            ProjectRepository.UpdateProject(selectedProject.Id, txtProjeAdi.Text, txtStratejikEtki.Text,
+            getComboboxKey(comboManager), txtAmac.Text, txtProblemTanimi.Text, txtKapsam.Text, DateTime.Today,
+            dateBaslangic.Value, dateBitis.Value, dateTahminiBitis.Value, dateTahminiBaslangic.Value,
+            getComboboxKey(comboProjeDurumu), numericGetiri.Value, getComboboxKey(comboGelirTipi),
+             getComboboxKey(comboProjeTipi));
+            ProjectEmployeeReposityory.UpdateEmployeeProject(selectedProject.Id, getSelectedEmployeeIds());
+            AfterCrud();
+        }
+
+        public void DeleteOperation()
+        {
+            if (selectedProject == null)
+            {
+                MessageBox.Show("Bir Proje Seçmediniz", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            ProjectEmployeeReposityory.DeleteProject(selectedProject.Id);
+            AfterCrud();
+        }
+
+        public void ClearOperation()
+        {
+            selectedProject = null;
             txtProjeAdi.Text = null;
             txtStratejikEtki.Text = null;
             txtAmac.Text = null;
@@ -269,17 +295,11 @@ namespace ProjectManagement.UserControls
                 teamListBox.SetItemChecked(i, false);
             }
         }
-        
-        public void DeleteProject()
+
+        private void AfterCrud()
         {
-            ProjectEmployeeReposityory.DeleteProject(selectedProject.Id);
-            ClearAll();
+            ClearOperation();
             UpdateProjectGridView();
-        }
-
-        private void comboManager_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

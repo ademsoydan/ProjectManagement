@@ -1,4 +1,5 @@
 ﻿using ProjectManagement.Entities;
+using ProjectManagement.Interfaces;
 using ProjectManagement.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ProjectManagement.UserControls
 {
-    public partial class TaskUserControl : UserControl
+    public partial class TaskUserControl : UserControl, IUserControl
     {
         PointUserControl pointUserControl = null;
         TaskDetailUserControl taskDetailUserControl = null;
@@ -59,40 +60,7 @@ namespace ProjectManagement.UserControls
                 }
             }
         }
-        public void Save()
-        {
-            if(pointUserControl != null)
-            {
-                pointUserControl.SavePoint();
-            }
-            else if(taskDetailUserControl != null) {  taskDetailUserControl.SaveTask(); }
-        }
-        public void UpdateTaskUserControl()
-        {
-            if (pointUserControl != null)
-            {
-                pointUserControl.UpdatePoint();
-            }
-            else if (taskDetailUserControl != null) { taskDetailUserControl.UpdateTask(); }
-        }
-
-        public void DeleteTaskUserControl()
-        {
-            if (pointUserControl != null)
-            {
-                pointUserControl.DeletePoint();
-            }
-            else if (taskDetailUserControl != null) { taskDetailUserControl.DeleteTask(); }
-        }
-
-        public void ClearAllUserControl()
-        {
-            if (pointUserControl != null)
-            {
-                pointUserControl.ClearAll();
-            }
-            else if (taskDetailUserControl != null) { taskDetailUserControl.ClearAll(); }
-        }
+        
 
         private void treeProje_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -123,6 +91,61 @@ namespace ProjectManagement.UserControls
         private void treeProje_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
+        }
+
+        public void Save()
+        {
+            
+        }
+        public void UpdateTaskUserControl()
+        {
+            
+        }
+
+        public void DeleteTaskUserControl()
+        {
+           
+        }
+
+        public void ClearAllUserControl()
+        {
+            
+        }
+
+        public void SaveOperation()
+        {
+            if (pointUserControl != null)
+            {
+                pointUserControl.SaveOperation();
+            }
+            else if (taskDetailUserControl != null) { taskDetailUserControl.SaveOperation(); }
+        }
+
+        public void UpdateOperation()
+        {
+            if (pointUserControl != null)
+            {
+                pointUserControl.UpdateOperation();
+            }
+            else if (taskDetailUserControl != null) { taskDetailUserControl.UpdateOperation(); }
+        }
+
+        public void DeleteOperation()
+        {
+            if (pointUserControl != null)
+            {
+                pointUserControl.DeleteOperation();
+            }
+            else if (taskDetailUserControl != null) { taskDetailUserControl.DeleteOperation(); ; }
+        }
+
+        public void ClearOperation()
+        {
+            if (pointUserControl != null)
+            {
+                pointUserControl.ClearOperation();
+            }
+            else if (taskDetailUserControl != null) { taskDetailUserControl.ClearOperation(); }
         }
     }
 }

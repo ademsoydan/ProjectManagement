@@ -1,4 +1,5 @@
-﻿using ProjectManagement.UserControls;
+﻿using ProjectManagement.Interfaces;
+using ProjectManagement.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,22 +15,17 @@ namespace ProjectManagement
 {
     public partial class Form1 : Form
     {
-        UserControl activeUserControl;
-        EmployeeUserControl employeeUserControl;
-        ProjectUserControl projectUserControl;
-        TaskUserControl taskUserControl;
+        IUserControl activeUserControl;
+ 
         public Form1()
         {
             InitializeComponent();
-            CreateUserControls();
+            ProjectUserControl projectUserControl = new ProjectUserControl();
+            ShowUserControl(projectUserControl);
+            activeUserControl = projectUserControl;
         }
 
-        private void CreateUserControls()
-        {
-            employeeUserControl = new EmployeeUserControl();
-            projectUserControl = new ProjectUserControl();
-            taskUserControl = new TaskUserControl();
-        }
+
 
         public void ChangeActiveUserControl(object sender, EventArgs e)
         {
@@ -37,16 +33,22 @@ namespace ProjectManagement
             switch (clickedButton.TabIndex)
             {
                 case 1:
+                    ProjectUserControl projectUserControl = new ProjectUserControl();
+                    ShowUserControl(projectUserControl);
                     activeUserControl = projectUserControl;
                     break;
                 case 2:
+                    TaskUserControl taskUserControl = new TaskUserControl();
+                    ShowUserControl(taskUserControl);
                     activeUserControl = taskUserControl;
                     break;
                 case 3:
+                    EmployeeUserControl employeeUserControl = new EmployeeUserControl();
+                    ShowUserControl(employeeUserControl);
                     activeUserControl = employeeUserControl;
                     break;
             }
-            ShowUserControl(activeUserControl);
+            
         }
         private void ShowUserControl(UserControl activeUserControl)
         {
@@ -57,42 +59,22 @@ namespace ProjectManagement
 
         private void btnSave_Click(object sender, EventArgs e) 
         {
-            if (activeUserControl is EmployeeUserControl)
-                employeeUserControl.SaveEmployee();
-            else if (activeUserControl is ProjectUserControl)
-                projectUserControl.SaveProject();
-            else if (activeUserControl is TaskUserControl)
-                taskUserControl.Save();
+            activeUserControl.SaveOperation();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (activeUserControl is EmployeeUserControl)
-                employeeUserControl.UpdateEmployee();
-            else if (activeUserControl is ProjectUserControl)
-                projectUserControl.UpdateProject();
-            else if (activeUserControl is TaskUserControl)
-                taskUserControl.UpdateTaskUserControl();
+            activeUserControl.UpdateOperation();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (activeUserControl is EmployeeUserControl)
-                employeeUserControl.DeleteEmployee();
-            else if (activeUserControl is ProjectUserControl) 
-                projectUserControl.DeleteProject();
-            else if (activeUserControl is TaskUserControl) 
-                taskUserControl.DeleteTaskUserControl();
+            activeUserControl.DeleteOperation();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            if (activeUserControl is EmployeeUserControl)
-                employeeUserControl.ClearAll();
-            else if (activeUserControl is ProjectUserControl) 
-                projectUserControl.ClearAll();
-            else if (activeUserControl is TaskUserControl) 
-                taskUserControl.ClearAllUserControl();
+            activeUserControl.ClearOperation();
         }
     }
 }

@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProjectManagement.Entities;
+using ProjectManagement.Interfaces;
 using ProjectManagement.Repositories;
 
 namespace ProjectManagement.UserControls
 {
-    public partial class PointUserControl : UserControl
+    public partial class PointUserControl : UserControl, IUserControl
     {
         TaskUserControl parent;
         int projectId;
@@ -57,7 +58,24 @@ namespace ProjectManagement.UserControls
             txtPointName.Text = point.PointName;
         }
 
-        public void SavePoint()
+        private void AfterCrudOperations() {
+            parent.LoadProjectsIntoTreeView();
+            UpdatePointGrid();
+            ClearOperation();
+        }
+
+        private void FillSelectedPointsFiels()
+        {
+            selectedPoint.BitisTarihi = dateBitisTarihi.Value;
+            selectedPoint.BaslangicTarihi = dateBaslangicTarihi.Value;
+            selectedPoint.PointName = txtPointName.Text;
+        }
+        private bool isInputsValid()
+        {
+            return !(string.IsNullOrEmpty(txtPointName.Text) || dateBitisTarihi.Value < dateBaslangicTarihi.Value);
+        }
+
+        public void SaveOperation()
         {
             if (!isInputsValid())
             {
@@ -68,7 +86,7 @@ namespace ProjectManagement.UserControls
             AfterCrudOperations();
         }
 
-        public void UpdatePoint()
+        public void UpdateOperation()
         {
             if (selectedPoint == null)
             {
@@ -85,7 +103,7 @@ namespace ProjectManagement.UserControls
             AfterCrudOperations();
         }
 
-        public void DeletePoint()
+        public void DeleteOperation()
         {
             if (selectedPoint == null)
             {
@@ -96,28 +114,12 @@ namespace ProjectManagement.UserControls
             AfterCrudOperations();
         }
 
-        private void AfterCrudOperations() {
-            parent.LoadProjectsIntoTreeView();
-            UpdatePointGrid();
-            ClearAll();
-        }
-
-        public void ClearAll()
+        public void ClearOperation()
         {
             selectedPoint = null;
             dateBaslangicTarihi.Value = DateTime.Today;
             dateBitisTarihi.Value = DateTime.Today;
             txtPointName.Text = null;
-        }
-        private void FillSelectedPointsFiels()
-        {
-            selectedPoint.BitisTarihi = dateBitisTarihi.Value;
-            selectedPoint.BaslangicTarihi = dateBaslangicTarihi.Value;
-            selectedPoint.PointName = txtPointName.Text;
-        }
-        private bool isInputsValid()
-        {
-            return !(string.IsNullOrEmpty(txtPointName.Text) || dateBitisTarihi.Value < dateBaslangicTarihi.Value);
         }
     }
 }

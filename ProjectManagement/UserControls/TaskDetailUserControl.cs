@@ -1,5 +1,6 @@
 ﻿using ProjectManagement.Entities;
 using ProjectManagement.Enums;
+using ProjectManagement.Interfaces;
 using ProjectManagement.Repositories;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace ProjectManagement.UserControls
 {
-    public partial class TaskDetailUserControl : UserControl
+    public partial class TaskDetailUserControl : UserControl, IUserControl
     {
         TaskUserControl parentTaskUserControl;
         int PointId;
@@ -65,60 +66,8 @@ namespace ProjectManagement.UserControls
         {
 
         }
-        public void UpdateTask()
-        {
-            if(selectedTask == null)
-            {
-                MessageBox.Show("Bir Task Seçmediniz", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (!AllInputsAreFilled())
-            {
-                MessageBox.Show("Eksik veri girişi yaptınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            ProjectTask task = new ProjectTask()
-            {
-                Id = selectedTask.Id,
-                TaskName = txtTaskName.Text,
-                BaslangicTarihi = dateBaslangic.Value,
-                BitisTarihi = dateBitis.Value,
-                Status = GetComboboxKey(comboStatus),
-                employeeId = GetComboboxKey(comboGorevli)
-            };
-            TaskRepository.UpdateTask(task);
-            AfterCrudOperations();
-        }
 
-        public void DeleteTask()
-        {
-            if (selectedTask == null)
-            {
-                MessageBox.Show("Bir Task Seçmediniz", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            TaskRepository.DeleteTask(selectedTask.Id);
-            AfterCrudOperations();
-        }
-        public void SaveTask()
-        {
-            if (!AllInputsAreFilled())
-            {
-                MessageBox.Show("Eksik veri girişi yaptınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            ProjectTask task = new ProjectTask()
-            {
-                TaskName = txtTaskName.Text,
-                BaslangicTarihi = dateBaslangic.Value,
-                BitisTarihi = dateBitis.Value,
-                Status = GetComboboxKey(comboStatus),
-                employeeId = GetComboboxKey(comboGorevli),
-                pointId = PointId
-            };
-            TaskRepository.SaveTask(task);
-            AfterCrudOperations();
-        }
+
         public bool AllInputsAreFilled()
         {
             return !(string.IsNullOrEmpty(txtTaskName.Text) ||
@@ -190,17 +139,10 @@ namespace ProjectManagement.UserControls
         {
             parentTaskUserControl.LoadProjectsIntoTreeView();
             UpdateTaskGrid();
-            ClearAll();
+            ClearOperation();
         }
 
-        public void ClearAll()
-        {
-            selectedTask = null;
-            txtTaskName.Text = null;
-            dateBaslangic.Value = DateTime.Today;
-            dateBitis.Value = DateTime.Today;
-            //comboStatus.
-        }
+ 
 
         private void fillCombboxAccordingToKey(ComboBox combobox, int key)
         {
@@ -213,6 +155,70 @@ namespace ProjectManagement.UserControls
                     break;
                 }
             }
+        }
+
+        public void SaveOperation()
+        {
+            if (!AllInputsAreFilled())
+            {
+                MessageBox.Show("Eksik veri girişi yaptınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            ProjectTask task = new ProjectTask()
+            {
+                TaskName = txtTaskName.Text,
+                BaslangicTarihi = dateBaslangic.Value,
+                BitisTarihi = dateBitis.Value,
+                Status = GetComboboxKey(comboStatus),
+                employeeId = GetComboboxKey(comboGorevli),
+                pointId = PointId
+            };
+            TaskRepository.SaveTask(task);
+            AfterCrudOperations();
+        }
+
+        public void UpdateOperation()
+        {
+            if (selectedTask == null)
+            {
+                MessageBox.Show("Bir Task Seçmediniz", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!AllInputsAreFilled())
+            {
+                MessageBox.Show("Eksik veri girişi yaptınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            ProjectTask task = new ProjectTask()
+            {
+                Id = selectedTask.Id,
+                TaskName = txtTaskName.Text,
+                BaslangicTarihi = dateBaslangic.Value,
+                BitisTarihi = dateBitis.Value,
+                Status = GetComboboxKey(comboStatus),
+                employeeId = GetComboboxKey(comboGorevli)
+            };
+            TaskRepository.UpdateTask(task);
+            AfterCrudOperations();
+        }
+
+        public void DeleteOperation()
+        {
+            if (selectedTask == null)
+            {
+                MessageBox.Show("Bir Task Seçmediniz", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            TaskRepository.DeleteTask(selectedTask.Id);
+            AfterCrudOperations();
+        }
+
+        public void ClearOperation()
+        {
+            selectedTask = null;
+            txtTaskName.Text = null;
+            dateBaslangic.Value = DateTime.Today;
+            dateBitis.Value = DateTime.Today;
         }
     }
 }
