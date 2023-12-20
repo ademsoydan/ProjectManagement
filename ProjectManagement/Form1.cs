@@ -1,4 +1,5 @@
-﻿using ProjectManagement.Interfaces;
+﻿using ProjectManagement.Entities;
+using ProjectManagement.Interfaces;
 using ProjectManagement.UserControls;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,10 @@ using System.Windows.Forms;
 
 namespace ProjectManagement
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, IMainForm
     {
         IUserControl activeUserControl;
- 
+        Employee loggedInEmployee = null;
         public Form1()
         {
             InitializeComponent();
@@ -25,7 +26,12 @@ namespace ProjectManagement
             activeUserControl = projectUserControl;
         }
 
-
+        public void ControlLoginAcitons(Employee employee)
+        {
+            loggedInEmployee = employee;
+            btnLogIn.Text = loggedInEmployee.Ad + " " + loggedInEmployee.Soyad;
+            btnLogIn.Dock = DockStyle.Left;
+        }
 
         public void ChangeActiveUserControl(object sender, EventArgs e)
         {
@@ -76,5 +82,21 @@ namespace ProjectManagement
         {
             activeUserControl.ClearOperation();
         }
+
+        private void btnLogIn_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Form yeniForm = new Form();
+
+            // Yeni formun özelliklerini ayarlayın
+            yeniForm.Text = "Kullanıcı Giriş";
+            yeniForm.Size = new System.Drawing.Size(250, 350);
+            LogInUserControl loginUserControl = new LogInUserControl(yeniForm, this);
+            yeniForm.Controls.Add(loginUserControl);
+            loginUserControl.Dock = DockStyle.Fill;
+            // Yeni formu gösterin
+            yeniForm.ShowDialog();
+        }
+
+
     }
 }

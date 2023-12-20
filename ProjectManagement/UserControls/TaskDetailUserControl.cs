@@ -86,14 +86,15 @@ namespace ProjectManagement.UserControls
         private void grdTask_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             int targetColumnIndex = 4;
-
+            
             if (e.ColumnIndex == targetColumnIndex && e.RowIndex >= 0)
             {
+                string formattedValue = "";
+               
                 // Hücredeki int değerini al
                 if (e.Value != null && int.TryParse(e.Value.ToString(), out int intValue))
                 {
-                   
-                    string formattedValue = "";
+                    string value = grdTask.Rows[e.RowIndex].Cells[4].Value.ToString();
                     switch (intValue)
                     {
                         case (int)ProjectStatuses.Yapılacak:
@@ -109,10 +110,69 @@ namespace ProjectManagement.UserControls
                     // DataGridView hücresine özel biçimli değeri yaz
                     e.Value = formattedValue;
                     e.FormattingApplied = true;
+
                 }
             }
+            if (e.ColumnIndex == 3 && e.RowIndex >= 0)
+            {
+                // Hücredeki değeri kontrol et.
+                if (e.Value != null)
+                {
+                    string status = grdTask.Rows[e.RowIndex].Cells[4].Value.ToString();
+                    // Eğer e.Value bir DateTime ise, doğrudan kullan.
+                    if (e.Value is DateTime)
+                    {
+                        DateTime cellValue = (DateTime)e.Value;
+                        
+                        // Koşulu kontrol et (örnek: bugünün tarihinden küçükse).
+                        if (cellValue < DateTime.Today && !status.Equals("2"))
+                        {
+                            // Tüm sütunu değiştir.
+                            ChangeBackRowColor(e, Color.Red, Color.White);
+                        }
+                        else
+                        {
+                            if (status.Equals("1"))
+                            {
+                                ChangeBackRowColor(e, Color.Yellow, Color.Black);
+                            }else if (status.Equals("2"))
+                            {
+                                ChangeBackRowColor(e, Color.Green, Color.Black);
+                            }
+                        }
+                    }
+                    else if (DateTime.TryParse(e.Value.ToString(), out DateTime cellValue))
+                    {
+                        // Koşulu kontrol et (örnek: bugünün tarihinden küçükse).
+                        if (cellValue < DateTime.Today && !status.Equals("2"))
+                        {
+                            ChangeBackRowColor(e, Color.Red, Color.White);
+                        }
+                        else
+                        {
+                            if (status.Equals("1"))
+                            {
+                                ChangeBackRowColor(e, Color.Yellow, Color.Black);
+                            }
+                            else if (status.Equals("2"))
+                            {
+                                ChangeBackRowColor(e, Color.Green, Color.Black);
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
+        private void ChangeBackRowColor(DataGridViewCellFormattingEventArgs e, Color backcolor, Color forecolor)
+        {
+            for (int i = 0; i < grdTask.Rows.Count; i++)
+            {
+                grdTask.Rows[e.RowIndex].DefaultCellStyle.BackColor = backcolor;
+                grdTask.Rows[e.RowIndex].DefaultCellStyle.ForeColor = forecolor;
+            }
+        }
         private void grdTask_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int columnIndex = e.ColumnIndex;
@@ -219,6 +279,8 @@ namespace ProjectManagement.UserControls
             txtTaskName.Text = null;
             dateBaslangic.Value = DateTime.Today;
             dateBitis.Value = DateTime.Today;
+            comboGorevli.SelectedItem = null;
+            comboStatus.SelectedItem = null;
         }
     }
 }

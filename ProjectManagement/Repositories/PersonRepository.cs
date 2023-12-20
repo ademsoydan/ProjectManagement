@@ -212,6 +212,56 @@ namespace ProjectManagement.Repositories
 
             return employeeData;
         }
+
+        public static Employee GetEmployeebyEmailAndPassword(string email, string password)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionUtil.ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string selectQuery = "SELECT Id, ad, soyad, email, telefon_numarasi, adres,dogum_tarihi, fotograf, password FROM Employee WHERE email = @email And password = @password";
+
+                    using (SqlCommand command = new SqlCommand(selectQuery, connection))
+                    {
+                        // Parametreyi belirle
+                        command.Parameters.AddWithValue("@email", email);
+                        command.Parameters.AddWithValue("@password", password);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                Employee employee = new Employee()
+                                {
+                                    Id = Convert.ToInt32(reader["Id"]),
+                                    Ad = reader["Ad"].ToString(),
+                                    Soyad = reader["Soyad"].ToString(),
+                                    Email = reader["Email"].ToString(),
+                                    TelefonNumarasi = reader["telefon_numarasi"].ToString(),
+                                    Adres = reader["Adres"].ToString(),
+                                    DogumTarihi = Convert.ToDateTime(reader["dogum_tarihi"]),
+                                    Fotograf = reader["fotograf"].ToString(),
+                                    Password = reader["Password"].ToString()
+                                };
+
+                                return employee;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Yanlış Email veya şifre girdiniz", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Veri çekme hatası: " + ex.Message);
+                }
+                return null;
+            }
+        }
         #region
         //    private static List<Person> persons = new List<Person>();
         //    private static int id = 0;

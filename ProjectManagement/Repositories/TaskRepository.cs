@@ -135,11 +135,12 @@ namespace ProjectManagement.Repositories
                 {
                     connection.Open();
 
-                    string updateQuery = "UPDATE Task SET task_ismi = @task_ismi, baslangic_tarihi = @baslangic_tarihi, bitis_tarihi = @bitis_tarihi, durum = @durum employee_id = @employee_id WHERE Id = @Id";
+                    string updateQuery = "UPDATE Task SET task_ismi = @task_ismi, baslangic_tarihi = @baslangic_tarihi, bitis_tarihi = @bitis_tarihi, durum = @durum, employee_id = @employee_id WHERE Id = @Id";
 
                     using (SqlCommand command = new SqlCommand(updateQuery, connection))
                     {
                         // Parametreleri belirle
+                        command.Parameters.AddWithValue("@Id", task.Id);
                         command.Parameters.AddWithValue("@task_ismi", task.TaskName);
                         command.Parameters.AddWithValue("@baslangic_tarihi", task.BaslangicTarihi);
                         command.Parameters.AddWithValue("@bitis_tarihi", task.BitisTarihi);
@@ -150,12 +151,12 @@ namespace ProjectManagement.Repositories
 
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Employee updated successfully.");
+                            MessageBox.Show("Task updated successfully.");
                             return true;
                         }
                         else
                         {
-                            MessageBox.Show("Employee not found with the specified Id.");
+                            MessageBox.Show("Task not found with the specified Id.");
                             return false;
                         }
                     }

@@ -227,7 +227,7 @@ namespace ProjectManagement.UserControls
 
         public void SaveOperation()
         {
-            if (AllInputsAreFilled())
+            if (!AllInputsAreFilled())
             {
                 MessageBox.Show("Eksik veri girişi yaptınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -252,7 +252,7 @@ namespace ProjectManagement.UserControls
                 MessageBox.Show("Bir Proje Seçmediniz", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (AllInputsAreFilled())
+            if (!AllInputsAreFilled())
             {
                 MessageBox.Show("Eksik veri girişi yaptınız", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -290,6 +290,9 @@ namespace ProjectManagement.UserControls
             dateTahminiBitis.Value = DateTime.Today;
             dateTahminiBaslangic.Value = DateTime.Today;
             numericGetiri.Value = decimal.Zero;
+            comboManager.SelectedItem = null;
+            comboGelirTipi.SelectedItem = null;
+            comboProjeTipi.SelectedItem = null;
             for (int i = 0; i < teamListBox.Items.Count; i++)
             {
                 teamListBox.SetItemChecked(i, false);

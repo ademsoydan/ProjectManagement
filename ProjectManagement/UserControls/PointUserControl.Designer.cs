@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grdPoints = new System.Windows.Forms.DataGridView();
+            this.adi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.baslangic_tarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bitis_tarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,10 +43,6 @@
             this.txtPointName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.adi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.baslangic_tarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bitis_tarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPoints)).BeginInit();
             this.panel1.SuspendLayout();
@@ -65,6 +65,8 @@
             // 
             // grdPoints
             // 
+            this.grdPoints.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.grdPoints.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.grdPoints.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdPoints.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.adi,
@@ -77,6 +79,31 @@
             this.grdPoints.Size = new System.Drawing.Size(732, 184);
             this.grdPoints.TabIndex = 0;
             this.grdPoints.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdPoints_CellContentClick);
+            // 
+            // adi
+            // 
+            this.adi.DataPropertyName = "durak_ismi";
+            this.adi.HeaderText = "K. Taşı Adı";
+            this.adi.Name = "adi";
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "id";
+            this.Id.Name = "Id";
+            this.Id.Visible = false;
+            // 
+            // baslangic_tarihi
+            // 
+            this.baslangic_tarihi.DataPropertyName = "baslangic_tarihi";
+            this.baslangic_tarihi.HeaderText = "Başlangıç  Tarihi";
+            this.baslangic_tarihi.Name = "baslangic_tarihi";
+            // 
+            // bitis_tarihi
+            // 
+            this.bitis_tarihi.DataPropertyName = "bitis_tarihi";
+            this.bitis_tarihi.HeaderText = "Bitis Tarihi";
+            this.bitis_tarihi.Name = "bitis_tarihi";
             // 
             // panel1
             // 
@@ -144,31 +171,6 @@
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // adi
-            // 
-            this.adi.DataPropertyName = "durak_ismi";
-            this.adi.HeaderText = "K. Taşı Adı";
-            this.adi.Name = "adi";
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "id";
-            this.Id.Name = "Id";
-            this.Id.Visible = false;
-            // 
-            // baslangic_tarihi
-            // 
-            this.baslangic_tarihi.DataPropertyName = "baslangic_tarihi";
-            this.baslangic_tarihi.HeaderText = "Başlangıç  Tarihi";
-            this.baslangic_tarihi.Name = "baslangic_tarihi";
-            // 
-            // bitis_tarihi
-            // 
-            this.bitis_tarihi.DataPropertyName = "bitis_tarihi";
-            this.bitis_tarihi.HeaderText = "Bitis Tarihi";
-            this.bitis_tarihi.Name = "bitis_tarihi";
             // 
             // PointUserControl
             // 
